@@ -5,7 +5,7 @@ module.exports = {
     port: 8088,
   },
   outputDir: 'dist',
-  publicPath: '/kaka_blog_web/',
+  publicPath: '/kaka_blog_admin/',
   //publicPath: process.env.NODE_ENV === 'production' ? '/admin/': '/',
   configureWebpack: (config) => {
     if (process.env.NODE_ENV === 'production') {
