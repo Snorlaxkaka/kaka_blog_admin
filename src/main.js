@@ -11,7 +11,7 @@ Vue.use(ElementUI);
 
 import http from "./http";
 Vue.prototype.$http = http;
-import MTopHandle from './components/MTopHandle'
+import MTopHandle from '@/components/MTopHandle.vue';
 Vue.component('MTopHandle', MTopHandle)
 Vue.mixin({
   computed: {
