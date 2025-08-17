@@ -40,6 +40,18 @@
         </template>
       </el-table-column>
     </el-table>
+     <!-- 添加分页控件 -->
+    <div class="pagination-container">
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="currentPage"
+        :page-sizes="[10, 20, 50]"
+        :page-size="pageSize"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="total"
+      ></el-pagination>
+    </div>
   </div>
 </template>
 
@@ -48,12 +60,28 @@ export default {
   data() {
     return {
       items: [],
+       // 添加分页相关变量
+      currentPage: 1,
+      pageSize: 10,
+      total: 0
     }
   },
   methods: {
-    async fetch() {
-      const res = await this.$http.get('rest/articles')
-      this.items = res.data
+  async fetch() {
+      // 修改请求URL，添加分页参数
+      const res = await this.$http.get(`rest/articles?page=${this.currentPage}&limit=${this.pageSize}`)
+      this.items = res.data.items
+      // 更新分页信息
+      this.total = res.data.pagination.total
+    },
+    // 添加分页事件处理函数
+    handleSizeChange(val) {
+      this.pageSize = val
+      this.fetch()
+    },
+    handleCurrentChange(val) {
+      this.currentPage = val
+      this.fetch()
     },
     remove(id) {
       this.$confirm('是否确定要删除这篇文章?', '提示', {
@@ -82,3 +110,13 @@ export default {
   },
 }
 </script>
+
+
+
+<style scoped>
+/* 添加分页样式 */
+.pagination-container {
+  margin-top: 20px;
+  text-align: right;
+}
+</style>
