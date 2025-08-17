@@ -13,6 +13,11 @@ import http from "./http";
 Vue.prototype.$http = http;
 import MTopHandle from '@/components/MTopHandle.vue';
 Vue.component('MTopHandle', MTopHandle)
+
+//全局注册指令
+import './directives/fullscreenLoading'
+
+
 Vue.mixin({
   computed: {
     uploadUrl() {
